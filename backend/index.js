@@ -13,35 +13,46 @@ app.get("/", (request, response) => {
   return response.status(234).send("welcome to MERN Stack Tutorial");
 });
 
-//Route untuk Save Buku Baru
+// List path untuk membuat Buku Baru
 app.post("/books", async (request, response) => {
   try {
     if (
       !request.body.title ||
       !request.body.description ||
-      !request.body.image ||
+      !request.body.image_url ||
       !request.body.release_year ||
-      !request.body.total_page ||
-      !request.body.created_at ||
-      !request.body.update_at
+      !request.body.total_page
     ) {
       return response.status(400).send({
         message:
-          "Send all required fields: title, description, image, releaseYeat, total_page, created_at, updated_at",
+          "Send all required fields: title, description, image_url, release_year, total_page",
       });
     }
     const newBook = {
       title: request.body.title,
       description: request.body.description,
-      image_url: request.body.image,
+      image_url: request.body.image_url,
       release_year: request.body.release_year,
       total_page: request.body.total_page,
-      created_at: request.body.created_at,
-      update_at: request.body.update_at,
     };
     const book = await Book.create(newBook);
 
     return response.status(201).send(book);
+  } catch (error) {
+    console.log(error.message);
+    response.status(500).send({ message: error.message });
+  }
+});
+
+// List Get untuk Menampilkan Semua Buku
+app.get("/books", async (request, response) => {
+  try {
+    const books = await Book.find({});
+
+    return response.status(200).json({
+      count: books.length,
+      data: books,
+    });
   } catch (error) {
     console.log(error.message);
     response.status(500).send({ message: error.message });
