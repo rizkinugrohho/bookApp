@@ -15,6 +15,13 @@ const CreateBooks = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const handleSaveBook = () => {
+    if (parseInt(release_year) >= 1980 && parseInt(release_year) <= 2021) {
+      window.alert(
+        `Buku dengan tahun rilis ${release_year} berada dalam rentang valid`
+      );
+    } else {
+      window.alert(`Hanya buku dengan Tahun rilis 1980 sampai 2021`);
+    }
     const data = {
       title,
       description,
@@ -54,15 +61,7 @@ const CreateBooks = () => {
     const newReleaseYear = e.target.value;
     setRelease(newReleaseYear);
   };
-  const showAlert = () => {
-    if (parseInt(release_year) >= 1980 && parseInt(release_year) <= 2021) {
-      window.alert(
-        `Buku dengan tahun rilis ${release_year} berada dalam rentang valid`
-      );
-    } else {
-      window.alert(`Tahun rilis ${release_year} diluar rentang yang valid`);
-    }
-  };
+  const showAlert = () => {};
 
   return (
     <div className="p-4">
