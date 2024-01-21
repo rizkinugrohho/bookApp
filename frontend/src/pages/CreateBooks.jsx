@@ -50,6 +50,20 @@ const CreateBooks = () => {
     setTotal(newTotalPage);
   };
 
+  const handleReleaseYear = (e) => {
+    const newReleaseYear = e.target.value;
+    setRelease(newReleaseYear);
+  };
+  const showAlert = () => {
+    if (parseInt(release_year) >= 1980 && parseInt(release_year) <= 2021) {
+      window.alert(
+        `Buku dengan tahun rilis ${release_year} berada dalam rentang valid`
+      );
+    } else {
+      window.alert(`Tahun rilis ${release_year} diluar rentang yang valid`);
+    }
+  };
+
   return (
     <div className="p-4">
       <BackButton />
@@ -89,9 +103,9 @@ const CreateBooks = () => {
         <div className="my-4">
           <label className="text-x1 mr-4 text-gray-500">Release</label>
           <input
-            type="text"
+            type="number"
             value={release_year}
-            onChange={(e) => setRelease(e.target.value)}
+            onChange={handleReleaseYear}
             className="border-2 border-gray-500 px-4 py-2 w-full"
           />
         </div>
